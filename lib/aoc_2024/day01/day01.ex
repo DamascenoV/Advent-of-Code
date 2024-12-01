@@ -2,6 +2,7 @@ defmodule AdventOfCode.Aoc2024.Day01 do
   @year "2024"
   @day "day01"
 
+  @spec run() :: String.t()
   def run() do
     input = AdventOfCode.get_input!("aoc_#{@year}/#{@day}/input.txt")
     part1_result = part_1(input)
@@ -10,6 +11,7 @@ defmodule AdventOfCode.Aoc2024.Day01 do
     "Part 1: #{part1_result}\nPart 2: #{part2_result}"
   end
 
+  @spec part_1(String.t()) :: integer()
   def part_1(content) do
     {id1, id2} =
       content
@@ -18,6 +20,7 @@ defmodule AdventOfCode.Aoc2024.Day01 do
     calculate_distance(id1, id2)
   end
 
+  @spec part_2(String.t()) :: integer()
   def part_2(content) do
     {id1, id2} =
       content
@@ -26,6 +29,7 @@ defmodule AdventOfCode.Aoc2024.Day01 do
     similary_score(id1, id2)
   end
 
+  @spec parse_file(String.t()) :: {list(integer()), list(integer())}
   defp parse_file(content) do
     content
     |> String.split("\n", trim: true)
@@ -34,6 +38,7 @@ defmodule AdventOfCode.Aoc2024.Day01 do
     |> Enum.unzip()
   end
 
+  @spec calculate_distance(list(integer()), list(integer())) :: integer()
   defp calculate_distance(id1, id2) do
     left = Enum.sort(id1)
     right = Enum.sort(id2)
@@ -43,6 +48,7 @@ defmodule AdventOfCode.Aoc2024.Day01 do
     |> Enum.reduce(0, fn {l, r}, acc -> acc + abs(l - r) end)
   end
 
+  @spec similary_score(list(integer()), list(integer())) :: integer()
   defp similary_score(id1, id2) do
     frequencies = Enum.frequencies(id2)
 
