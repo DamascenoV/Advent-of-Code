@@ -1,17 +1,14 @@
 defmodule AdventOfCode.Aoc2024.Day01 do
+  @behaviour AdventOfCode.Behaviour
   @year "2024"
   @day "day01"
 
   @spec run() :: String.t()
   def run() do
-    input = AdventOfCode.get_input!("aoc_#{@year}/#{@day}/input.txt")
-    part1_result = part_1(input)
-    part2_result = part_2(input)
-
-    "Part 1: #{part1_result}\nPart 2: #{part2_result}"
+    AdventOfCode.run(__MODULE__, "aoc_#{@year}/#{@day}/input.txt")
   end
 
-  @spec part_1(String.t()) :: integer()
+  @spec part_1(binary()) :: integer()
   def part_1(content) do
     {id1, id2} =
       content
@@ -20,7 +17,7 @@ defmodule AdventOfCode.Aoc2024.Day01 do
     calculate_distance(id1, id2)
   end
 
-  @spec part_2(String.t()) :: integer()
+  @spec part_2(binary()) :: integer()
   def part_2(content) do
     {id1, id2} =
       content
@@ -40,11 +37,8 @@ defmodule AdventOfCode.Aoc2024.Day01 do
 
   @spec calculate_distance(list(integer()), list(integer())) :: integer()
   defp calculate_distance(id1, id2) do
-    left = Enum.sort(id1)
-    right = Enum.sort(id2)
-
-    left
-    |> Enum.zip(right)
+    [Enum.sort(id1), Enum.sort(id2)]
+    |> Enum.zip()
     |> Enum.reduce(0, fn {l, r}, acc -> acc + abs(l - r) end)
   end
 
