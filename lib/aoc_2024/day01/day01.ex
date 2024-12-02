@@ -8,28 +8,27 @@ defmodule AdventOfCode.Aoc2024.Day01 do
     AdventOfCode.run(__MODULE__, "aoc_#{@year}/#{@day}/input.txt")
   end
 
-  @spec part_1(binary()) :: integer()
+  @spec part_1([binary()]) :: integer()
   def part_1(content) do
     {id1, id2} =
       content
-      |> parse_file()
+      |> parse_lines()
 
     calculate_distance(id1, id2)
   end
 
-  @spec part_2(binary()) :: integer()
+  @spec part_2([binary()]) :: integer()
   def part_2(content) do
     {id1, id2} =
       content
-      |> parse_file()
+      |> parse_lines()
 
     similary_score(id1, id2)
   end
 
-  @spec parse_file(String.t()) :: {list(integer()), list(integer())}
-  defp parse_file(content) do
+  @spec parse_lines([binary()]) :: {list(integer()), list(integer())}
+  defp parse_lines(content) do
     content
-    |> String.split("\n", trim: true)
     |> Enum.map(&String.split(&1, ~r/\s+/, trim: true))
     |> Enum.map(fn [left, right] -> {String.to_integer(left), String.to_integer(right)} end)
     |> Enum.unzip()

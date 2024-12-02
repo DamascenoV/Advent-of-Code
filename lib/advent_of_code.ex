@@ -11,9 +11,10 @@ defmodule AdventOfCode do
     "Part 1: #{part1}\nPart 2: #{part2}"
   end
 
-  @spec get_input!(String.t()) :: binary()
+  @spec get_input!(String.t()) :: [binary()]
   def get_input!(path) do
     Path.join(__DIR__, path)
     |> File.read!()
+    |> String.split("\n", trim: true)
   end
 end
