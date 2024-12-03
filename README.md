@@ -6,5 +6,5 @@
 ```bash
 # mix advent <year> <day>
 # Example:
-    mix advent 2024 day01
+    mix advent 2024 01
 ```

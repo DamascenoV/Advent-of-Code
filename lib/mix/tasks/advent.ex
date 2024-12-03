@@ -13,7 +13,7 @@ defmodule Mix.Tasks.Advent do
           Module.concat([
             "AdventOfCode",
             String.to_atom("Aoc#{year}"),
-            String.capitalize(day) |> String.to_atom()
+            String.to_atom("Day#{day}")
           ])
 
         if Code.ensure_loaded?(module_name) and function_exported?(module_name, :run, 0) do
