@@ -8,23 +8,24 @@ defmodule AdventOfCode.Aoc2024.Day02 do
     AdventOfCode.run(__MODULE__, "aoc_#{@year}/#{@day}/input.txt")
   end
 
-  @spec part_1([binary()]) :: integer()
+  @spec part_1(binary()) :: integer()
   def part_1(content) do
     content
     |> parse_lines()
     |> Enum.count(&is_safe?/1)
   end
 
-  @spec part_2([binary()]) :: integer()
+  @spec part_2(binary()) :: integer()
   def part_2(content) do
     content
     |> parse_lines()
     |> Enum.count(&is_safe_with_dampener?/1)
   end
 
-  @spec parse_lines([binary()]) :: list(list(integer()))
+  @spec parse_lines(binary()) :: list(list(integer()))
   defp parse_lines(content) do
     content
+    |> String.split("\n", trim: true)
     |> Enum.map(fn line ->
       String.split(line)
       |> Enum.map(&String.to_integer/1)
