@@ -16,4 +16,18 @@ defmodule AdventOfCode do
     Path.expand(path, __DIR__)
     |> File.read!()
   end
+
+  @spec get_grid(binary()) :: %{optional({non_neg_integer(), non_neg_integer()}) => String.t()}
+  def get_grid(content) do
+    content
+    |> String.split("\n", trim: true)
+    |> Enum.with_index()
+    |> Enum.reduce(Map.new(), fn {line, i}, map ->
+      String.graphemes(line)
+      |> Enum.with_index()
+      |> Enum.reduce(map, fn {col, j}, map ->
+        Map.put(map, {i + 1, j + 1}, col)
+      end)
+    end)
+  end
 end
