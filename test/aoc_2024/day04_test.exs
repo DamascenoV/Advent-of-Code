@@ -12,8 +12,8 @@ defmodule AdventOfCode.Aoc2024.Day04Test do
     assert Day04.part_1(input) == 18
   end
 
-  # test "part 2 with example input" do
-  #   input = AdventOfCode.get_input!(@input_2)
-  #   assert Day04.part_2(input) == 48
-  # end
+  test "part 2 with example input" do
+    input = AdventOfCode.get_input!(@input_2)
+    assert Day04.part_2(input) == 9
+  end
 end

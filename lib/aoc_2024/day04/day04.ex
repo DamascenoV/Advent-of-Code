@@ -15,7 +15,7 @@ defmodule AdventOfCode.Aoc2024.Day04 do
 
   @spec part_1(binary()) :: integer()
   def part_2(content) do
-    ""
+    process_grid(content, "A", &find_x_mas/2)
   end
 
   @spec process_grid(binary(), String.t(), function()) :: non_neg_integer()
@@ -40,6 +40,18 @@ defmodule AdventOfCode.Aoc2024.Day04 do
     end)
   end
 
+  @spec find_x_mas({integer(), integer()}, map()) :: list(list({integer(), integer()}))
+  defp find_x_mas(cord, input) do
+    pattern_sets = [
+      [[{1, -1}, {1, 1}], [{-1, 1}, {-1, -1}]],
+      [[{-1, -1}, {1, -1}], [{-1, 1}, {1, 1}]]
+    ]
+
+    Enum.filter(pattern_sets, fn [p1, p2] ->
+      check_pattern_set(cord, input, p1, p2) || check_pattern_set(cord, input, p2, p1)
+    end)
+  end
+
   @spec match?(
           {integer(), integer()},
           {integer(), integer()},
@@ -49,5 +61,16 @@ defmodule AdventOfCode.Aoc2024.Day04 do
         ) :: boolean()
   defp match?({line1, col1}, {line2, col2}, offset, letter, grid) do
     Map.get(grid, {line1 + offset * line2, col1 + offset * col2}) == letter
+  end
+
+  @spec check_pattern_set(
+          {integer(), integer()},
+          map(),
+          list({integer(), integer()}),
+          list({integer(), integer()})
+        ) :: boolean
+  defp check_pattern_set(cord, input, first_set, second_set) do
+    Enum.all?(first_set, &match?(cord, &1, 1, "M", input)) &&
+      Enum.all?(second_set, &match?(cord, &1, 1, "S", input))
   end
 end
